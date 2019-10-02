@@ -12,6 +12,8 @@ public class User implements Serializable {
     private String sobrenome;
     private String funcao;
     private String email;
+    private String key;
+    private Integer index;
     private FirebaseUser firebaseUser;
 
     public User() {
@@ -55,6 +57,24 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getKey(){
+        return key;
+    }
+
+    public void setKey(String key){
+        this.key = key;
+    }
+
+    @Exclude
+    public Integer getIndex(){
+        return index;
+    }
+
+    @Exclude
+    public void setIndex(Integer index){
+        this.index = index;
     }
 
     @Exclude
