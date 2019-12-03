@@ -12,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.edu.ifsul.loja.R;
 import br.edu.ifsul.loja.model.Cliente;
 
 public class ClientesAdapter extends ArrayAdapter<Cliente> {
 
+    private static final String TAG = "clientesAdapter";
     private final Context context;
 
     public ClientesAdapter(@NonNull Context context, @NonNull List<Cliente> clientes){
@@ -38,9 +44,10 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
         }
 
         Cliente cliente = getItem(position);
-        holder.tvNome.setText(cliente.getNome());
-        holder.tvSobrenome.setText(cliente.getSobrenome());
-        holder.tvCpf.setText(cliente.getCpf().toString());
+        holder.tvNome.setText(cliente.getNome() + " " + cliente.getSobrenome());
+        holder.tvDetalhes.setText("Código: " + cliente.getCodigoDeBarras() + "\nCPF.: " + cliente.getCpf());
+        holder.pbFotoCliente.setVisibility(ProgressBar.VISIBLE);
+        holder.imvFoto.setImageResource(R.drawable.img_cliente_icon_524x524);
         if(cliente.getUrl_foto().equals("")){
             holder.pbFotoDoCliente.setVisibility(View.INVISIBLE);
         }else{
@@ -57,8 +64,10 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
         final TextView tvCpf;
         final ImageView imvFoto;
         final ProgressBar pbFotoDoCliente;
+        final TextView tvDetalhes;
 
         public ViewHolder(View view){
+            tvDetalhes = view.findViewById(R.id.tvDetalhesDoClienteAdapater);
             tvNome = view.findViewById(R.id.tvNomeClienteAdapter);
             tvSobrenome = view.findViewById(R.id.tvSobrenomeClienteAdapater);
             tvCpf = view.findViewById(R.id.tvCpfClienteAdapter);

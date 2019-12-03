@@ -80,7 +80,7 @@ public class UserActivity extends AppCompatActivity {
                             usuario.setEmail(user.getEmail());
 
                             FirebaseDatabase.getInstance().getReference().child("vendas").child("users").child(mAuth.getCurrentUser().getUid()).setValue(usuario);
-                            Toast.makeText(UserActivity.this, "Marcos comeu coco.",
+                            Toast.makeText(UserActivity.this, "Deu certo!",
                                     Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(UserActivity.this, LoginActivity.class));
                         } else {
