@@ -2,4 +2,6 @@
 <resources>
     <item name="pb_foto_clientes_adapter" type="id">
     </item>
+    <item name="tvDetalhesDoClienteAdapater" type="id">string</item>
+    <item name="tvdata_pedido" type="id">date</item>
 </resources>

@@ -49,7 +49,7 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
         holder.pbFotoCliente.setVisibility(ProgressBar.VISIBLE);
         holder.imvFoto.setImageResource(R.drawable.img_cliente_icon_524x524);
         if(cliente.getUrl_foto().equals("")){
-            holder.pbFotoDoCliente.setVisibility(View.INVISIBLE);
+            holder.pbFotoCliente.setVisibility(View.INVISIBLE);
         }else{
             //faz o downlod da foto aqui, usando API do serviço Storage
         }
@@ -63,7 +63,7 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
         final TextView tvSobrenome;
         final TextView tvCpf;
         final ImageView imvFoto;
-        final ProgressBar pbFotoDoCliente;
+        final ProgressBar pbFotoCliente;
         final TextView tvDetalhes;
 
         public ViewHolder(View view){
@@ -72,7 +72,7 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
             tvSobrenome = view.findViewById(R.id.tvSobrenomeClienteAdapater);
             tvCpf = view.findViewById(R.id.tvCpfClienteAdapter);
             imvFoto = view.findViewById(R.id.imvFotoProdutoAdapter);
-            pbFotoDoCliente = view.findViewById(R.id.pb_foto_clientes_adapter);
+            pbFotoCliente = view.findViewById(R.id.pb_foto_clientes_adapter);
         }
     }
 
