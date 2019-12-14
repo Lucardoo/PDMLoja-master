@@ -45,7 +45,6 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
 
         Cliente cliente = getItem(position);
         holder.tvNome.setText(cliente.getNome() + " " + cliente.getSobrenome());
-        holder.tvDetalhes.setText("Código: " + cliente.getCodigoDeBarras() + "\nCPF.: " + cliente.getCpf());
         holder.pbFotoCliente.setVisibility(ProgressBar.VISIBLE);
         holder.imvFoto.setImageResource(R.drawable.img_cliente_icon_524x524);
         if(cliente.getUrl_foto().equals("")){
@@ -64,14 +63,12 @@ public class ClientesAdapter extends ArrayAdapter<Cliente> {
         final TextView tvCpf;
         final ImageView imvFoto;
         final ProgressBar pbFotoCliente;
-        final TextView tvDetalhes;
 
         public ViewHolder(View view){
-            tvDetalhes = view.findViewById(R.id.tvDetalhesDoClienteAdapater);
             tvNome = view.findViewById(R.id.tvNomeClienteAdapter);
             tvSobrenome = view.findViewById(R.id.tvSobrenomeClienteAdapater);
             tvCpf = view.findViewById(R.id.tvCpfClienteAdapter);
-            imvFoto = view.findViewById(R.id.imvFotoProdutoAdapter);
+            imvFoto = view.findViewById(R.id.imvFotoClienteAdapter);
             pbFotoCliente = view.findViewById(R.id.pb_foto_clientes_adapter);
         }
     }

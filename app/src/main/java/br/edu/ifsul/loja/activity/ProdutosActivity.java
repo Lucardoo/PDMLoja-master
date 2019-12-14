@@ -63,7 +63,7 @@ public class ProdutosActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
 
         //personaliza o menu da navigationview de acordo com o perfil do usuário logado na sessão
-        if(AppSetup.user.getFuncao().equals("admin")){
+        if(AppSetup.user.getFuncao().equals("Administrador")){
             navigationView.getMenu().findItem(R.id.nav_group_admin).setVisible(true);
         }
 
@@ -93,17 +93,17 @@ public class ProdutosActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d(TAG, "dataSnapshot=" + dataSnapshot);
-                AppSetup.listProdutos = new ArrayList<>();
+                AppSetup.produtos = new ArrayList<>();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     Log.d(TAG, "dataSnapshot=" + ds);
                     Produto produto = ds.getValue(Produto.class);
                     produto.setKey(ds.getKey());
-                    produto.setIndex(AppSetup.listProdutos.size());
-                    AppSetup.listProdutos.add(produto);
+                    produto.setIndex(AppSetup.produtos.size());
+                    AppSetup.produtos.add(produto);
                 }
 
                 //faz o bindView
-                lvProdutos.setAdapter(new ProdutosAdapter(ProdutosActivity.this, AppSetup.listProdutos));
+                lvProdutos.setAdapter(new ProdutosAdapter(ProdutosActivity.this, AppSetup.produtos));
             }
 
             @Override
@@ -155,7 +155,7 @@ public class ProdutosActivity extends AppCompatActivity implements NavigationVie
             @Override
             public boolean onQueryTextChange(String newText) {
                 produtosTemp.clear();
-                for(Produto p : AppSetup.listProdutos){
+                for(Produto p : AppSetup.produtos){
                     if(p.getNome().contains(newText)){
                         produtosTemp.add(p);
                     }
@@ -195,7 +195,7 @@ public class ProdutosActivity extends AppCompatActivity implements NavigationVie
                     Log.d(TAG, "Barcode read: " + barcode.displayValue);
                     //localiza o produto na lista (ou não)
                     boolean flag = true;
-                    for (Produto produto : AppSetup.listProdutos) {
+                    for (Produto produto : AppSetup.produtos) {
                         if (String.valueOf(produto.getCodigoDeBarras()).equals(barcode.displayValue)) {
                             flag = false;
                             Intent intent = new Intent(ProdutosActivity.this, ProdutoDetalheActivity.class);

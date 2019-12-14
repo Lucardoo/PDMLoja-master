@@ -13,14 +13,18 @@ import br.edu.ifsul.loja.model.User;
 import br.edu.ifsul.loja.model.Cliente;
 import br.edu.ifsul.loja.model.ItemPedido;
 import br.edu.ifsul.loja.model.Produto;
-import br.edu.ifsul.loja.model.User;
 
 
 public class AppSetup {
-    public static User user = null;
+
+    public static List<Produto> produtos = new ArrayList<>();
+    public static List<Cliente> clientes = new ArrayList<>();
+    public static List<ItemPedido> carrinho = new ArrayList<>();
+    public static List<Pedido> pedidos = new ArrayList<>();
     public static List<Produto> listProdutos = new ArrayList<>();
+
+    public static User user = null;
     public static Cliente cliente = null;
-    public static ArrayList<ItemPedido> carrinho = new ArrayList<>();
     public static Pedido pedido = null;
     public static FirebaseAuth mAuth = null;
     public static Map<String, Bitmap> cacheProdutos = new HashMap<>();

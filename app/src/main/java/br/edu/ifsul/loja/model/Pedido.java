@@ -5,8 +5,8 @@ public class Pedido {
     private String key;
     private String formaDePagamento;
     private String estado;
-    private Long dataCriacao;
-    private Long dataModificacao;
+    private String dataCriacao;
+    private String dataModificacao;
     private Double totalPedido;
     private Boolean situacao;
     private List<ItemPedido> itens; //associação entre as classes Pedido-ItemPedido
@@ -14,6 +14,10 @@ public class Pedido {
 
     public Pedido(List<ItemPedido> itens){
         this.itens = itens;
+    }
+
+    public Pedido() {
+
     }
 
     public String getKey() {
@@ -40,19 +44,11 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public Long getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(Long dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
-    public Long getDataModificacao() {
+    public String getDataModificacao() {
         return dataModificacao;
     }
 
-    public void setDataModificacao(Long dataModificacao) {
+    public void setDataModificacao(String dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
 
@@ -75,6 +71,8 @@ public class Pedido {
     public List<ItemPedido> getItens() {
         return itens;
     }
+
+    public void setItens(List<ItemPedido> itens) { this.itens = itens; }
 
     public Cliente getCliente() {
         return cliente;

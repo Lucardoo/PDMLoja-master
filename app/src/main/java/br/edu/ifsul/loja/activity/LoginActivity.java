@@ -20,8 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import br.edu.ifsul.loja.R;
+import br.edu.ifsul.loja.model.Produto;
 import br.edu.ifsul.loja.model.User;
 import br.edu.ifsul.loja.setup.AppSetup;
 
@@ -36,15 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-        //mapeia os componentes da UI
 
         etEmail = findViewById(R.id.etEmail_login);
         etSenha = findViewById(R.id.etSenha_login);
-
-        //trata evento onclick do button
         findViewById(R.id.btLogar_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        //trata evento onclick do textview
         findViewById(R.id.tv_esqueceusenha_login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,17 +76,38 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        obterToken();
+    }
+
+
+    private void obterToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        String token = task.getResult().getToken();
+
+                        Log.d(TAG, "Token gerado\n" + token);
+                    }
+                });
+    }
+
     private void signIn(String email, String senha) {
         mAuth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             setUserSessao();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Snackbar.make(findViewById(R.id.R_id_container_activity_login), getString(R.string.toast_falha_autenticacao), Snackbar.LENGTH_LONG).show();
                         }
@@ -103,7 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Log.d(TAG, "dataSnapshot=" + dataSnapshot + " id user = " + mAuth.getCurrentUser().getUid());
                 AppSetup.user = dataSnapshot.getValue(User.class);
                 AppSetup.user.setFirebaseUser(mAuth.getCurrentUser());
 
@@ -126,11 +143,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.getValue(String.class).equals("Administrador")) {
-                    startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ProdutosActivity.class));
                     finish();
                 }
                 else{
-                    startActivity(new Intent(LoginActivity.this, UsersActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ProdutosActivity.class));
                     finish();
                 }
 

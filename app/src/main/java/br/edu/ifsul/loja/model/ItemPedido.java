@@ -6,10 +6,9 @@ public class ItemPedido implements Serializable {
     private Integer quantidade;
     private Double totalItem;
     private Boolean situacao;
-    private Produto produto; //associação entre as classes ItemPedido-Produto
+    private Produto produto;
 
-    public ItemPedido(Produto produto) {
-        this.produto = produto;
+    public ItemPedido() {
     }
 
     public Integer getQuantidade() {
@@ -40,6 +39,9 @@ public class ItemPedido implements Serializable {
         return produto;
     }
 
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
     @Override
     public String toString() {
         return "ItemPedido{" +
